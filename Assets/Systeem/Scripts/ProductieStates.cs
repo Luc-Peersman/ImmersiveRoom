@@ -95,6 +95,7 @@ public class ProductieStates : MonoBehaviour
         var toetsenbord = Keyboard.current;
         if (toetsenbord == null) return;
 
+        float nu = Time.unscaledTime;
         foreach (var knop in toetsenbord.allKeys)
         {
             if (knop == null || !knop.wasPressedThisFrame) continue;
@@ -102,12 +103,35 @@ public class ProductieStates : MonoBehaviour
             if (knop.keyCode == Key.Enter || knop.keyCode == Key.NumpadEnter)
             {
                 // Enter na een snelle reeks tekens = een NFC-code
-                if (nfcBuffer.Length >= 4) VerwerkNfcCode(nfcBuffer);
-                nfcBuffer = "";
+                bool wasCode = inReeks && nfcBuffer.Length >= 4;
+                if (wasCode) VerwerkNfcCode(nfcBuffer);
+                nfcBuffer = ""; inReeks = false; wachtendeToets = Key.None;
+                if (!wasCode) VerwerkToets(knop.keyCode);
+                laatsteToetsTijd = nu;
+                continue;
             }
-            VerwerkToets(knop.keyCode);
+
+            // Een NFC-lezer typt zijn code heel snel. Toetsen die snel achter elkaar komen, horen bij een code
+            // en worden NIET als losse toets uitgevoerd (de code bevat soms letters zoals A of F).
+            if (nu - laatsteToetsTijd < ReeksTijd) { inReeks = true; wachtendeToets = Key.None; }
+            else if (inReeks && nu - laatsteToetsTijd > 0.5f) inReeks = false;
+            if (!inReeks) { wachtendeToets = knop.keyCode; wachtSinds = nu; }
+            laatsteToetsTijd = nu;
+        }
+
+        // Een losse toets voeren we pas uit als er heel even niets na kwam
+        if (wachtendeToets != Key.None && nu - wachtSinds >= ReeksTijd)
+        {
+            var toets = wachtendeToets;
+            wachtendeToets = Key.None;
+            VerwerkToets(toets);
         }
     }
+
+    const float ReeksTijd = 0.08f;
+    Key wachtendeToets = Key.None;
+    float wachtSinds, laatsteToetsTijd = -1f;
+    bool inReeks;
 
     void BijTeken(char teken)
     {

@@ -43,7 +43,8 @@ Liever programmeren? Kijk naar `Assets/Systeem/Scripts/VoorbeeldStatesInCode.cs`
   toetsenbord voordoet, of een **USB-NFC-lezer** in toetsenbordmodus.
 - Een NFC-lezer typt de **code van de tag** en daarna Enter. Scan je tag: de code staat op het bedienscherm
   (*Laatste NFC-code*) en in de Console. Kopieer die naar **Nfc Code** in de Inspector.
-- Gebruik je NFC? Gebruik dan geen cijfer- of lettertoetsen die ook in je tag-codes voorkomen.
+- Toetsen die heel snel achter elkaar komen (zoals een NFC-lezer typt) worden als NFC-code gezien en niet als losse toetsen.
+  Een losse toets wordt daarom 0,08 seconde later uitgevoerd.
 - Het venster van de productie moet **actief** zijn (aangeklikt), anders komen de toetsen niet aan.
 
 ### In elke state: bijvoorbeeld een figuurtje op de NFC-lezer
