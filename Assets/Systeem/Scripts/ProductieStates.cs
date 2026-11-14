@@ -57,6 +57,10 @@ public class ProductieStates : MonoBehaviour
     [Tooltip("De states van je productie, van boven naar beneden: state 0, 1, 2, ...")]
     public List<ProductieState> states = new List<ProductieState>();
 
+    [Tooltip("Toetsen of NFC-tags die in ELKE state werken, bv. een 3D-geprint figuurtje dat je op de lezer zet.\n" +
+             "Eerst kijkt de productie naar de toetsen van de huidige state, daarna naar deze lijst.")]
+    public List<Toetsactie> inElkeState = new List<Toetsactie>();
+
     [Tooltip("In welke state de productie begint.")]
     public int startState = 0;
 
@@ -131,12 +135,15 @@ public class ProductieStates : MonoBehaviour
     void VerwerkToets(Key toets)
     {
         laatsteToets = toets.ToString();
-        foreach (var actie in states[HuidigeState].toetsen)
+        foreach (var lijst in new[] { states[HuidigeState].toetsen, inElkeState })
         {
-            if (actie.toets == toets && string.IsNullOrWhiteSpace(actie.nfcCode))
+            foreach (var actie in lijst)
             {
-                Voer(actie);
-                return;
+                if (actie.toets == toets && string.IsNullOrWhiteSpace(actie.nfcCode))
+                {
+                    Voer(actie);
+                    return;
+                }
             }
         }
         ToonInfo();
@@ -147,13 +154,16 @@ public class ProductieStates : MonoBehaviour
         code = code.Trim();
         laatsteNfcCode = code;
         Debug.Log("NFC-code gelezen: " + code + "  (kopieer deze code naar 'Nfc Code' in de Inspector)");
-        foreach (var actie in states[HuidigeState].toetsen)
+        foreach (var lijst in new[] { states[HuidigeState].toetsen, inElkeState })
         {
-            if (!string.IsNullOrWhiteSpace(actie.nfcCode) &&
-                string.Equals(actie.nfcCode.Trim(), code, StringComparison.OrdinalIgnoreCase))
+            foreach (var actie in lijst)
             {
-                Voer(actie);
-                return;
+                if (!string.IsNullOrWhiteSpace(actie.nfcCode) &&
+                    string.Equals(actie.nfcCode.Trim(), code, StringComparison.OrdinalIgnoreCase))
+                {
+                    Voer(actie);
+                    return;
+                }
             }
         }
         ToonInfo();
@@ -175,6 +185,12 @@ public class ProductieStates : MonoBehaviour
                        "\nLaatste NFC-code: " + laatsteNfcCode +
                        "\n\nIn deze state:";
         foreach (var actie in state.toetsen)
+        {
+            string wat = string.IsNullOrWhiteSpace(actie.nfcCode) ? actie.toets.ToString() : "NFC " + actie.nfcCode;
+            tekst += "\n  " + wat + "  →  " + actie.omschrijving;
+        }
+        if (inElkeState.Count > 0) tekst += "\nIn elke state:";
+        foreach (var actie in inElkeState)
         {
             string wat = string.IsNullOrWhiteSpace(actie.nfcCode) ? actie.toets.ToString() : "NFC " + actie.nfcCode;
             tekst += "\n  " + wat + "  →  " + actie.omschrijving;

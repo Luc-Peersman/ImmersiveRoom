@@ -46,6 +46,26 @@ Liever programmeren? Kijk naar `Assets/Systeem/Scripts/VoorbeeldStatesInCode.cs`
 - Gebruik je NFC? Gebruik dan geen cijfer- of lettertoetsen die ook in je tag-codes voorkomen.
 - Het venster van de productie moet **actief** zijn (aangeklikt), anders komen de toetsen niet aan.
 
+### In elke state: bijvoorbeeld een figuurtje op de NFC-lezer
+
+Onder **In Elke State** zet je toetsen of NFC-tags die **altijd** werken, in welke state de productie ook is.
+Handig voor een **3D-geprint figuurtje** met een NFC-sticker in de voet (zoals Skylanders): zet het op de lezer en het karakter
+verschijnt op de wand. De demo heeft een **Figuur (voorbeeld)**: toets **F** laat het zien, **G** haalt het weg, en de
+NFC-code **FIGUUR** (vervang die door de code van jouw tag) doet hetzelfde. Het script **Draaien** laat het figuur ronddraaien.
+
+Let op: de lezer merkt alleen dat je een figuur **neerzet**, niet dat je het weghaalt.
+
+### Optie: 3D met een rood/blauw-brilletje (anaglyph)
+
+Klik op **Wanden (camera's)** en zet bij **Anaglyph 3D** het vinkje **Aan**, of druk tijdens het spelen op **F3**.
+Elke wand toont dan een 3D-beeld voor een brilletje met **rood glas links**. Kies bij **Bril**: *Rood Blauw*, *Rood Cyaan*
+of *Rood Cyaan Dubois* (minder spookbeelden bij een rood/cyaan-bril).
+
+- **Oogafstand**: hoe sterk het 3D-effect is (normaal 0.065).
+- **Focus Afstand**: op die afstand (in meter) ligt iets precies *op* de wand. Dichterbij komt het uit de wand.
+- Het bedienscherm blijft gewoon (zonder 3D).
+- Elke wand wordt dan drie keer getekend: bij een zware scene kan het trager worden.
+
 ### Video op een wand
 
 Zet je video (`.mp4`) in `Assets/ImmersiveRoom/Video`. Selecteer **Wanden (camera's) → Wand_1 → Videoscherm wand 1**,
