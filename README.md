@@ -58,13 +58,28 @@ Let op: de lezer merkt alleen dat je een figuur **neerzet**, niet dat je het weg
 ### Optie: 3D met een rood/blauw-brilletje (anaglyph)
 
 Klik op **Wanden (camera's)** en zet bij **Anaglyph 3D** het vinkje **Aan**, of druk tijdens het spelen op **F3**.
-Elke wand toont dan een 3D-beeld voor een brilletje met **rood glas links**. Kies bij **Bril**: *Rood Blauw*, *Rood Cyaan*
-of *Rood Cyaan Dubois* (minder spookbeelden bij een rood/cyaan-bril).
+Elke wand toont dan een 3D-beeld voor een brilletje met **rood glas links**. Kies bij **Bril**:
+*Rood Cyaan Grijs* (rustigst en lichtst, aanrader), *Rood Cyaan Kleur* (houdt de sfeer), *Rood Cyaan Dubois*
+(kleur met minder spookbeelden) of *Rood Blauw* (voor een brilletje met een blauw glas).
 
 - **Oogafstand**: hoe sterk het 3D-effect is (normaal 0.065).
-- **Focus Afstand**: op die afstand (in meter) ligt iets precies *op* de wand. Dichterbij komt het uit de wand.
+- **Focus Afstand**: op die afstand (in meter) ligt iets precies *op* de wand. Verder weg ligt achter de wand
+  (rustig, de wand is een raam), dichterbij komt naar je toe (wow, maar vermoeiend als het te veel is).
+- **Helderheid** en **Gamma**: maak het beeld lichter als het door het brilletje te donker is.
 - Het bedienscherm blijft gewoon (zonder 3D).
 - Elke wand wordt dan drie keer getekend: bij een zware scene kan het trager worden.
+
+**Zo wordt 3D mooi:**
+
+| Doe wel | Doe niet |
+|---|---|
+| Lichte achtergrond en lichte kleuren | Grote vlakken in felrood of felblauw (die ziet één oog bijna niet) |
+| Textuur en randen op alles (schaakbord, stenen, patronen) | Effen vlakken zonder textuur (daar zie je geen diepte) |
+| Veel kleine dingen op verschillende afstanden (deeltjes!) | Alles op dezelfde afstand |
+| Dingen die op je af komen, af en toe | Alles de hele tijd vlak voor je neus |
+
+Kijk naar de scene **ImmersiveRoom-3D-Demo**: vier gangen, objecten die op je af vliegen en deeltjesstromen
+(SPATIE: rust → deeltjes → aanval → rust). Daar staat 3D meteen aan.
 
 ### Video op een wand
 

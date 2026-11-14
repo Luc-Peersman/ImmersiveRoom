@@ -11,19 +11,27 @@ using UnityEngine.UI;
 /// </summary>
 public class Anaglyph3D : MonoBehaviour
 {
-    public enum Bril { RoodBlauw = 0, RoodCyaan = 1, RoodCyaanDubois = 2 }
+    public enum Bril { RoodBlauw = 0, RoodCyaanKleur = 1, RoodCyaanDubois = 2, RoodCyaanGrijs = 3 }
 
     [Tooltip("3D aan of uit.")]
     public bool aan = false;
 
-    [Tooltip("Welk brilletje gebruiken de bezoekers? Rood glas zit links.")]
-    public Bril bril = Bril.RoodBlauw;
+    [Tooltip("Welk brilletje en welke weergave? Rood glas zit links.\n" +
+             "Rood Cyaan Grijs: rustigst en lichtst (aanrader). Kleur: houdt de sfeer. Dubois: kleur met minder spookbeelden.\n" +
+             "Rood Blauw: voor brilletjes met een blauw (geen cyaan) glas.")]
+    public Bril bril = Bril.RoodCyaanGrijs;
 
     [Tooltip("Afstand tussen de ogen in meters. Groter = sterker 3D-effect (maar vermoeiender). Normaal 0.065.")]
     [Range(0f, 0.3f)] public float oogafstand = 0.065f;
 
     [Tooltip("Op deze afstand (in meters) ligt een object precies 'op' de wand. Dichterbij komt het uit de wand, verder weg ligt het erachter.")]
     [Range(0.5f, 30f)] public float focusAfstand = 4f;
+
+    [Tooltip("Hoe licht het 3D-beeld is. Door een gekleurd glas zie je maar één kleur, dus het beeld lijkt donkerder. Normaal 1.6.")]
+    [Range(0.5f, 4f)] public float helderheid = 1.2f;
+
+    [Tooltip("Kleiner dan 1 maakt vooral de donkere delen lichter. Normaal 0.85.")]
+    [Range(0.3f, 1.2f)] public float gamma = 0.85f;
 
     [Tooltip("Met deze toets zet je 3D aan of uit tijdens het spelen. Kies een toets die je productie niet gebruikt.")]
     public Key wisselToets = Key.F3;
@@ -127,6 +135,8 @@ public class Anaglyph3D : MonoBehaviour
             p.links.projectionMatrix = OogProjectie(p.wand, aspect, oogafstand, focusAfstand, true);
             p.rechts.projectionMatrix = OogProjectie(p.wand, aspect, oogafstand, focusAfstand, false);
             p.materiaal.SetFloat("_Modus", (float)bril);
+            p.materiaal.SetFloat("_Helderheid", helderheid);
+            p.materiaal.SetFloat("_Gamma", gamma);
         }
     }
 
