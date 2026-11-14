@@ -78,7 +78,7 @@ Elke wand toont dan een 3D-beeld voor een brilletje met **rood glas links**. Kie
 | Veel kleine dingen op verschillende afstanden (deeltjes!) | Alles op dezelfde afstand |
 | Dingen die op je af komen, af en toe | Alles de hele tijd vlak voor je neus |
 
-Kijk naar de scene **ImmersiveRoom-3D-Demo**: vier gangen, objecten die op je af vliegen en deeltjesstromen
+Kijk naar de scene **ImmersiveRoom-3D-Demo**: een grote hal met zuilen en deuropeningen; objecten vliegen rond en langs je heen, van wand naar wand, en deeltjes wervelen om je heen
 (SPATIE: rust → deeltjes → aanval → rust). Daar staat 3D meteen aan.
 
 ### Video op een wand
