@@ -1,0 +1,74 @@
+# Immersive Room – template
+
+Startproject (Unity) voor de **Immersive Room** van IX SintLucas: een ruimte met **4 wanden en 4 beamers**.
+Je bouwt een beleving in Unity; elke wand toont wat de camera voor die wand ziet. Een vijfde scherm is het
+**bedienscherm**: daarop zie je alle vier de wanden klein, plus in welke state de productie is.
+
+## Openen
+
+1. Open het project met **Unity 6000.3.28f1** (via Unity Hub: *Add project from disk*).
+2. De scene **ImmersiveRoom-Demo** opent vanzelf (`Assets/ImmersiveRoom/Scenes`).
+3. Druk op **Play**. Kies bovenin de **Game**-weergave het scherm: *Display 1* = bedienscherm, *Display 2 t/m 5* = wand 1 t/m 4.
+
+## Hoe werkt het?
+
+| Onderdeel in de scene | Wat het doet |
+|---|---|
+| **Wanden (camera's)** | Vier camera's (`Wand_1` t/m `Wand_4`) in het midden van de kamer, elk kijkt naar één wand. Elke wand heeft een **Tekst** en een **Videoscherm** (staan uit). |
+| **Bedienscherm** | Laat de vier wanden klein zien en de **Info**: welke state, laatste toets, laatste NFC-code. |
+| **Productie** | Het script **ProductieStates**: je verhaal of puzzel, in states. Plus de demo-inhoud, vloer, licht en geluid. |
+
+### States: je storyboard
+
+De productie bestaat uit **states**. Een state is een plaatje uit je storyboard.
+In elke state kan een **toets** (of een **NFC-tag**) iets laten gebeuren, en de productie naar een volgende state brengen.
+Dezelfde toets mag in een andere state iets anders doen. Zo maak je een verhaal, een beleving of een puzzel.
+
+Alles stel je in bij **Productie → ProductieStates** in de Inspector:
+
+- **Bij Binnenkomen**: wat er gebeurt zodra de productie in deze state komt (bv. object aan, geluid afspelen).
+- **Toetsen**: per regel een toets *of* een NFC-code, de **Acties** die dan gebeuren, en of de productie naar een
+  **Volgende State** gaat.
+- Acties toevoegen: klik op **+**, sleep een object in het vakje, en kies wat het moet doen, bijvoorbeeld
+  `GameObject → SetActive`, `AudioSource → Play` of `VideoPlayer → Play`.
+
+Het voorbeeld in de demo: **SPATIE** start de beleving, **A** speelt een geluid, nog een keer **SPATIE** zet een video op wand 1,
+en **SPATIE** begint weer opnieuw.
+
+Liever programmeren? Kijk naar `Assets/Systeem/Scripts/VoorbeeldStatesInCode.cs`.
+
+### Toetsen komen van een toetsenbord, ESP32, Arduino of NFC-lezer
+
+- Voor Unity is alles **gewone toetsenbordinvoer**: een (Bluetooth-)toetsenbord, een ESP32 of Arduino die zich als
+  toetsenbord voordoet, of een **USB-NFC-lezer** in toetsenbordmodus.
+- Een NFC-lezer typt de **code van de tag** en daarna Enter. Scan je tag: de code staat op het bedienscherm
+  (*Laatste NFC-code*) en in de Console. Kopieer die naar **Nfc Code** in de Inspector.
+- Gebruik je NFC? Gebruik dan geen cijfer- of lettertoetsen die ook in je tag-codes voorkomen.
+- Het venster van de productie moet **actief** zijn (aangeklikt), anders komen de toetsen niet aan.
+
+### Video op een wand
+
+Zet je video (`.mp4`) in `Assets/ImmersiveRoom/Video`. Selecteer **Wanden (camera's) → Wand_1 → Videoscherm wand 1**,
+sleep je video in **Video Clip** van de **Video Player**, en zet het scherm aan vanuit een state
+(`GameObject → SetActive` aan, en `VideoPlayer → Play`).
+
+## Je eigen scene uit een ander project (bv. je kermis of je Hygge-beleving)
+
+1. In je **eigen project**: klik in het **Project**-venster met de rechtermuisknop op je map
+   (bv. `Assets/VR-Basics/Studenten/<Voornaam>`) → **Export As Asset Package...**
+   Zet **Include all scripts** **uit**, vink alleen jouw spullen aan en klik **Export**.
+2. In **dit project**: **Assets → Import Package → Custom Package...**, kies je `.unitypackage` en klik **Import**.
+3. Sleep je objecten (of prefab) in de scene onder **Productie**, en zet **Demo-inhoud** uit of verwijder die.
+4. VR-onderdelen (XR Origin, controllers, grab-scripts) werken hier niet: in de Immersive Room is er geen bril.
+   Laat ze weg bij het exporteren.
+
+## Mappen
+
+| Map | Inhoud |
+|---|---|
+| `Assets/ImmersiveRoom/` | **Van jou**: scenes, materialen, audio, video, en `Studenten/<Voornaam>` voor je eigen werk. |
+| `Assets/Systeem/` | **Niet aankomen**: scripts, bedienscherm, videoschermen. |
+
+## Bronnen
+
+Geluiden: CC0 (Kenney), zie `Assets/ImmersiveRoom/Audio/BRONNEN.md`.
